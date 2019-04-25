@@ -367,6 +367,9 @@ declare namespace Autodesk {
             [key: string]: any;
         }
 
+        function createInitializerOptions(): InitializerOptions;
+        function createViewerConfig(): ViewerConfig;
+        function getApiEndpoint(): string;
         function Initializer(options: InitializerOptions, callback?: () => void): void;
 
         class Document {
