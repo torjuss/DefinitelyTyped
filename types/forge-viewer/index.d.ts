@@ -642,6 +642,7 @@ declare namespace Autodesk {
             getDefaultNavigationToolName(): object;
             getDimensions(): object;
             getExplodeScale(): number;
+            getExtension(extensionId: string): Extension;
             getExtensionModes(extensionID: string): string[];
             getFirstPersonToolPopup(): boolean;
             getFocalLength(): number;
