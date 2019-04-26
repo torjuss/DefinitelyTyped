@@ -349,7 +349,7 @@ declare namespace Autodesk {
           searchByTag(tagsToMatch: object): BubbleNode[];
           setTag(tag: string, value: any): void;
           traverse(cb: () => void): boolean;
-          urn(searchParent: boolean): string;
+          urn(searchParent?: boolean): string;
           useAsDefault(): boolean;
         }
 
@@ -670,7 +670,7 @@ declare namespace Autodesk {
             hidePoints(hide: boolean): void;
             hideById(node: number): void;
             isolate(node: number | number[]): void;
-            isolateById(dbIds: number | number[]): void;
+            isolateById(dbIds?: number | number[]): void;
             initialize(): number | ErrorCodes;
             initSettings(): void;
             isExtensionActive(extensionID: string): boolean;
@@ -795,8 +795,8 @@ declare namespace Autodesk {
                        accessControlProperties?: object): void;
           registerViewer(viewableType: string, viewerClass: any, config?: ViewerConfig): void;
           selectItem(item: ViewerItem|BubbleNode,
-                     onSuccessCallback: (viewer: Viewer3D, item: ViewerItem) => void,
-                     onErrorCallback: (errorCode: ErrorCodes, errorMsg: string,
+                     onSuccessCallback?: (viewer: Viewer3D, item: ViewerItem) => void,
+                     onErrorCallback?: (errorCode: ErrorCodes, errorMsg: string,
                                        statusCode: string, statusText: string, messages: string) => void): boolean;
           selectItemById(itemId: number,
                          onItemSelectedCallback: (item: object, viewGeometryItem: object) => void,
@@ -999,11 +999,12 @@ declare namespace Autodesk {
             closer: HTMLElement;
             container: HTMLElement;
             content: Node;
+            scrollContainer: HTMLElement;
             title: HTMLElement;
             titleLabel: string;
 
             addEventListener(target: object, eventId: string, callback: () => void): void;
-            addVisibilityListener(callback: () => void): void;
+            addVisibilityListener(callback: (state?: boolean) => void): void;
             createCloseButton(): HTMLElement;
             createScrollContainer(options: ScrollContainerOptions): void;
             createTitleBar(title: string): HTMLElement;
