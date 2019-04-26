@@ -864,9 +864,9 @@ declare namespace Autodesk {
               model: Model;
               navigation: Navigation;
 
-              addPanel(panel: UI.PropertyPanel): boolean;
+              addPanel(panel: UI.DockingPanel): boolean;
               getToolbar(create: boolean): UI.ToolBar;
-              removePanel(panel: UI.PropertyPanel): boolean;
+              removePanel(panel: UI.DockingPanel): boolean;
               resizePanels(options?: ResizePanelOptions): void;
               setLayersPanel(layersPanel: UI.LayersPanel): boolean;
               setModelStructurePanel(modelStructurePanel: UI.ModelStructurePanel): boolean;
