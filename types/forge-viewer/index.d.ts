@@ -399,6 +399,15 @@ declare namespace Autodesk {
             requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
         }
 
+        class EventDispatcher {
+            constructor();
+
+            addEventListener(type: string, listener: (event: any) => void, options?: any): void;
+            removeEventListener(type: string, listener: (event: any) => void): void;
+            dispatchEvent(event: any): void;
+            hasEventListener(type: string, listener: (event: any) => void): boolean;
+        }
+
         class Extension {
             viewer: Private.GuiViewer3D;
             options: any;
