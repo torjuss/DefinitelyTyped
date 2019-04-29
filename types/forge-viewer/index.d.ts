@@ -1013,7 +1013,7 @@ declare namespace Autodesk {
             titleLabel: string;
 
             addEventListener(target: object, eventId: string, callback: () => void): void;
-            addVisibilityListener(callback: (state?: boolean) => void): void;
+            addVisibilityListener(callback: (state: boolean) => void): void;
             createCloseButton(): HTMLElement;
             createScrollContainer(options: ScrollContainerOptions): void;
             createTitleBar(title: string): HTMLElement;
