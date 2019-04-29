@@ -349,7 +349,7 @@ declare namespace Autodesk {
           searchByTag(tagsToMatch: object): BubbleNode[];
           setTag(tag: string, value: any): void;
           traverse(cb: () => void): boolean;
-          urn(searchParent: boolean): string;
+          urn(searchParent?: boolean): string;
           useAsDefault(): boolean;
         }
 
@@ -397,6 +397,15 @@ declare namespace Autodesk {
             getViewGeometry(item: object): object;
             load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object): void;
             requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
+        }
+
+        class EventDispatcher {
+            constructor();
+
+            addEventListener(type: string, listener: (event: any) => void, options?: any): void;
+            removeEventListener(type: string, listener: (event: any) => void): void;
+            dispatchEvent(event: any): void;
+            hasEventListener(type: string, listener: (event: any) => void): boolean;
         }
 
         class Extension {
@@ -461,7 +470,7 @@ declare namespace Autodesk {
 
         class Model {
             fetchTopology(maxSizeMB: number): Promise<object>;
-            getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: any) => void, errorCallback?: (err: any) => void): void;
+            getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
             getFragmentList(): any;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
@@ -642,6 +651,7 @@ declare namespace Autodesk {
             getDefaultNavigationToolName(): object;
             getDimensions(): object;
             getExplodeScale(): number;
+            getExtension(extensionId: string): Extension;
             getExtensionModes(extensionID: string): string[];
             getFirstPersonToolPopup(): boolean;
             getFocalLength(): number;
@@ -669,7 +679,7 @@ declare namespace Autodesk {
             hidePoints(hide: boolean): void;
             hideById(node: number): void;
             isolate(node: number | number[]): void;
-            isolateById(dbIds: number | number[]): void;
+            isolateById(dbIds?: number | number[]): void;
             initialize(): number | ErrorCodes;
             initSettings(): void;
             isExtensionActive(extensionID: string): boolean;
@@ -794,8 +804,8 @@ declare namespace Autodesk {
                        accessControlProperties?: object): void;
           registerViewer(viewableType: string, viewerClass: any, config?: ViewerConfig): void;
           selectItem(item: ViewerItem|BubbleNode,
-                     onSuccessCallback: (viewer: Viewer3D, item: ViewerItem) => void,
-                     onErrorCallback: (errorCode: ErrorCodes, errorMsg: string,
+                     onSuccessCallback?: (viewer: Viewer3D, item: ViewerItem) => void,
+                     onErrorCallback?: (errorCode: ErrorCodes, errorMsg: string,
                                        statusCode: string, statusText: string, messages: string) => void): boolean;
           selectItemById(itemId: number,
                          onItemSelectedCallback: (item: object, viewGeometryItem: object) => void,
@@ -863,9 +873,9 @@ declare namespace Autodesk {
               model: Model;
               navigation: Navigation;
 
-              addPanel(panel: UI.PropertyPanel): boolean;
+              addPanel(panel: UI.DockingPanel): boolean;
               getToolbar(create: boolean): UI.ToolBar;
-              removePanel(panel: UI.PropertyPanel): boolean;
+              removePanel(panel: UI.DockingPanel): boolean;
               resizePanels(options?: ResizePanelOptions): void;
               setLayersPanel(layersPanel: UI.LayersPanel): boolean;
               setModelStructurePanel(modelStructurePanel: UI.ModelStructurePanel): boolean;
@@ -998,11 +1008,12 @@ declare namespace Autodesk {
             closer: HTMLElement;
             container: HTMLElement;
             content: Node;
+            scrollContainer: HTMLElement;
             title: HTMLElement;
             titleLabel: string;
 
             addEventListener(target: object, eventId: string, callback: () => void): void;
-            addVisibilityListener(callback: () => void): void;
+            addVisibilityListener(callback: (state: boolean) => void): void;
             createCloseButton(): HTMLElement;
             createScrollContainer(options: ScrollContainerOptions): void;
             createTitleBar(title: string): HTMLElement;
