@@ -519,6 +519,7 @@ declare namespace Autodesk {
         }
 
         interface Property {
+            attributeName: string;
             displayCategory: string;
             displayName: string;
             displayValue: string;
@@ -582,7 +583,8 @@ declare namespace Autodesk {
             handleResize?(): void;
         }
 
-        class UnifiedCamera {
+        class UnifiedCamera extends THREE.Camera {
+            isPerspective: boolean;
         }
 
         interface ContextMenuCallbackStatus {
@@ -625,7 +627,9 @@ declare namespace Autodesk {
         class Viewer3D {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
+            container: Element;
             id: number;
+
             activateLayerState(stateName: string): void;
             activateExtension(extensionID: string, mode: string): boolean;
             anyLayerHidden(): boolean;
@@ -633,8 +637,7 @@ declare namespace Autodesk {
             areAllVisible(): boolean;
             clearSelection(): void;
             clearThemingColors(model: any): void;
-            clientToWorld(point: THREE.Vector3): THREE.Vector3;
-            container: Element;
+            clientToWorld(clientX: number, clientY: number, ignoreTransparent: boolean): { model: Model, point: THREE.Vector3; };
             createViewCube(): void;
             deactivateExtension(extensionID: string): boolean;
             displayViewCube(display: boolean): void;
