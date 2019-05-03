@@ -469,10 +469,15 @@ declare namespace Autodesk {
         }
 
         class Model {
+            visibilityManager: Private.VisibilityManager;
+
+            clearThemingColors(): void;
             fetchTopology(maxSizeMB: number): Promise<object>;
+            getBoundingBox(): THREE.Box3;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
             getFragmentList(): any;
+            getGeometryList(): any;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             geomPolyCount(): number;
@@ -482,6 +487,7 @@ declare namespace Autodesk {
             getExternalIdMapping(onSuccessCallback: () => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
             getFragmentMap(): any; // DbidFragmentMap|InstanceTree;
+            getInstanceTree(): InstanceTree;
             getLayersRoot(): object;
             getMetadata(itemName: string, subitemName?: string, defaultValue?: any): any;
             getRoot(): object;
@@ -491,7 +497,7 @@ declare namespace Autodesk {
             getUnitData(unit: string): object;
             getUnitScale(): number;
             getUnitString(): string;
-            getUpVector(): any;
+            getUpVector(): number[];
             hasTopology(): boolean;
             instancePolyCount(): number;
             is2d(): boolean;
@@ -505,10 +511,6 @@ declare namespace Autodesk {
             search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
             setData(data: object): void;
             setUUID(urn: string): void;
-            clearThemingColors(): void;
-
-            getInstanceTree(): InstanceTree;
-            visibilityManager: Private.VisibilityManager;
         }
 
         interface PropertyResult {
@@ -529,20 +531,29 @@ declare namespace Autodesk {
         }
 
         class Navigation {
+            dollyFromPoint(distance: number, point: THREE.Vector3): void;
+            fitBounds(immediate: boolean, bounds: THREE.Box3): any;
+            getAlignedUpVector(): THREE.Vector3;
             getCamera(): any;
+            getCameraRightVector(worldAligned: boolean): THREE.Vector3;
+            getCameraUpVector(): THREE.Vector3;
+            setCameraUpVector(up: THREE.Vector): void;
             getEyeVector(): THREE.Vector3;
             getFovMin(): number;
             getFovMax(): number;
+            getIs2D(): boolean;
             getPivotPoint(): THREE.Vector3;
             setPivotPoint(pivot: THREE.Vector3): void;
+            getPivotSetFlag(): boolean;
             getPosition(): THREE.Vector3;
             setPosition(pos: THREE.Vector3): void;
+            getReverseZoomDirection(): boolean;
+            setReverseZoomDirection(state: boolean): void;
             getTarget(): THREE.Vector3;
             setTarget(target: THREE.Vector3): void;
             getScreenViewport(): ClientRect;
             setScreenViewport(viewport: ClientRect): void;
             setView(position: THREE.Vector3, target: THREE.Vector3): void;
-            setCameraUpVector(up: THREE.Vector): void;
         }
 
         interface Properties {
@@ -913,10 +924,13 @@ declare namespace Autodesk {
 
                 visibilityManager: VisibilityManager;
 
+                addOverlay(overlayName: string, mesh: any): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
+                createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
                 hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(): void;
+                invalidate(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
                 setLightPreset(index: number, force?: boolean): void;
 
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
