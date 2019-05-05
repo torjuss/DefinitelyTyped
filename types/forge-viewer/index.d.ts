@@ -344,11 +344,12 @@ declare namespace Autodesk {
           isGeomLeaf(): boolean;
           isMetadata(): boolean;
           isViewable(): boolean;
+          isViewPreset(): boolean;
           name(): string;
           search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
           searchByTag(tagsToMatch: object): BubbleNode[];
           setTag(tag: string, value: any): void;
-          traverse(cb: () => void): boolean;
+          traverse(cb: (bubble: BubbleNode) => boolean): boolean;
           urn(searchParent?: boolean): string;
           useAsDefault(): boolean;
         }
