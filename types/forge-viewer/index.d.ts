@@ -641,6 +641,7 @@ declare namespace Autodesk {
 
             container: Element;
             id: number;
+            toolbar: UI.ToolBar;
 
             activateLayerState(stateName: string): void;
             activateExtension(extensionID: string, mode: string): boolean;
@@ -708,6 +709,7 @@ declare namespace Autodesk {
             loadModel(urn: string, options?: any, onSuccesfullCallback?: () => void,
                             onErrorCallback?: (errorCode: ErrorCodes, errorMessage: string, statusCode: number, statusText: string) => void): any;
             loadDocumentNode(lmvDocument: Document, bubbleNode: BubbleNode, options?: object): void;
+            loadExtension(extensionId: string, options?: any): Promise<Extension>;
             localize(): void;
             modelHasTopology(): boolean;
             playAnimation(callback?: () => void): void;
@@ -774,7 +776,6 @@ declare namespace Autodesk {
             tearDown(): void;
             toggleSelect(dbid: number, selectionType: SelectionMode): void;
             toggleVisibility(node: number): void;
-            toolbar: UI.ToolBar;
             trackADPSettingsOptions(): void;
             transferModel(): void;
             uninitialize(): void;
@@ -1026,6 +1027,7 @@ declare namespace Autodesk {
             closer: HTMLElement;
             container: HTMLElement;
             content: Node;
+            footer: HTMLElement;
             scrollContainer: HTMLElement;
             title: HTMLElement;
             titleLabel: string;
@@ -1206,24 +1208,22 @@ declare namespace Autodesk {
             removeControl(control: string | Control): boolean;
           }
 
-          enum ControlStates {
-            ACTIVE = 0,
-            INACTIVE = 1,
-            DISABLED = 2
-          }
-
           class Button extends Control {
             constructor(id: string, options?: object);
 
-            State: ControlStates;
             Event: ControlEventArgs;
 
-            getState(): ControlStates;
+            getState(): Button.State;
             onClick: (event: Event) => void;
             onMouseOut: (event: Event) => void;
             onMouseOver: (event: Event) => void;
             setIcon(iconClass: string): void;
-            setState(state: ControlStates): boolean;
+            setState(state: Button.State): boolean;
+          }
+
+          // NOTE: TypeScript doesn't support enum inside class. This seems to be commonly used workaround.
+          namespace Button {
+            enum State { ACTIVE, INACTIVE, DISABLED }
           }
 
           class ComboButton extends Button {
