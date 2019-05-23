@@ -485,7 +485,7 @@ declare namespace Autodesk {
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
             getDocumentNode(): object;
-            getExternalIdMapping(onSuccessCallback: () => void, onErrorCallback: () => void): any;
+            getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
             getFragmentMap(): any; // DbidFragmentMap|InstanceTree;
             getInstanceTree(): InstanceTree;
@@ -649,7 +649,7 @@ declare namespace Autodesk {
             applyCamera(camera: THREE.Camera, fit?: boolean): void;
             areAllVisible(): boolean;
             clearSelection(): void;
-            clearThemingColors(model: any): void;
+            clearThemingColors(model?: any): void;
             clientToWorld(clientX: number, clientY: number, ignoreTransparent: boolean): { model: Model, point: THREE.Vector3; };
             createViewCube(): void;
             deactivateExtension(extensionID: string): boolean;
@@ -717,7 +717,7 @@ declare namespace Autodesk {
             resize(): void;
             restoreState(state: any, filter?: any, immediate?: boolean): boolean;
             search(text: string, successCallback: (r: number[]) => void, errorCallback: (err: any) => void, attributeNames?: string[]): void;
-            select(dbIds: number | number[]): void;
+            select(dbIds?: number | number[]): void;
             setActiveNavigationTool(toolName?: string): boolean;
             setBackgroundColor(red: number, green: number, blue: number, red2: number, green2: number, blue2: number): void;
             setBimWalkToolPopup(value: boolean): void;
@@ -932,7 +932,7 @@ declare namespace Autodesk {
                 hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(): void;
-                invalidate(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
+                invalidate(needsClear: boolean, needsRender?: boolean, overlayDirty?: boolean): void;
                 setLightPreset(index: number, force?: boolean): void;
 
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
