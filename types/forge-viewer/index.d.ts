@@ -684,7 +684,7 @@ declare namespace Autodesk {
             getNavigationLock(): boolean;
             getNavigationLockSettings(): object;
             getObjectTree(onSuccessCallback?: () => void, onErrorCallback?: () => void): void;
-            getProperties(dbid: number, onSuccessCallback?: () => void, onErrorCallback?: () => void): void;
+            getProperties(dbid: number, onSuccessCallback?: (propResult: PropertyResult) => void, onErrorCallback?: (status: any, message: string, data: any) => void): void;
             getScreenShot(w?: number, h?: number, cb?: () => void): any; // DOMString
             getSelection(): number[];
             getSelectionCount(): number;
