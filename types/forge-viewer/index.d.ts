@@ -512,6 +512,7 @@ declare namespace Autodesk {
             pointInClip(): void;
             search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
             setData(data: object): void;
+            setThemingColor(dbId: number, color: THREE.Vector4, recursive: boolean): void;
             setUUID(urn: string): void;
         }
 
@@ -759,7 +760,7 @@ declare namespace Autodesk {
             setSelectionMode(mode: SelectionMode): void;
             setSwapBlackAndWhite(value: boolean): void;
             setTheme(name: 'dark-theme'|'light-theme'|string): void;
-            setThemingColor(dbId: number, color: THREE.Vector4, model?: any): void;
+            setThemingColor(dbId: number, color: THREE.Vector4, model?: Model, recursive?: boolean): void;
             setUp(config?: any): void;
             setUseLeftHandedInput(value: boolean): void;
             setUsePivotAlways(value: boolean): void;
@@ -821,7 +822,7 @@ declare namespace Autodesk {
                        accessControlProperties?: object): void;
           registerViewer(viewableType: string, viewerClass: any, config?: ViewerConfig): void;
           selectItem(item: ViewerItem|BubbleNode,
-                     onSuccessCallback?: (viewer: Viewer3D, item: ViewerItem) => void,
+                     onSuccessCallback?: (viewer: Viewer3D | Private.GuiViewer3D, item: ViewerItem) => void,
                      onErrorCallback?: (errorCode: ErrorCodes, errorMsg: string,
                                        statusCode: string, statusText: string, messages: string) => void): boolean;
           selectItemById(itemId: number,
