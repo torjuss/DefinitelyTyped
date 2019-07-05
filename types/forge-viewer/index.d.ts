@@ -280,6 +280,7 @@ declare namespace Autodesk {
         const PREF_CHANGED_EVENT = 'prefChanged';
         const PREF_RESET_EVENT = 'prefReset';
         const PROGRESS_UPDATE_EVENT = 'progressUpdate';
+        const RENDER_FIRST_PIXEL = 'renderFirstPixel';
         const RENDER_OPTION_CHANGED_EVENT = 'renderOptionChanged';
         const RENDER_PRESENTED_EVENT = 'renderPresented';
         const RESET_EVENT = 'reset';
